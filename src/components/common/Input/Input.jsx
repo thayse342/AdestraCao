@@ -1,9 +1,9 @@
 import { StyleInput } from './input.style'
 
 
-const Input = ({ text, width, height, placeholder }) => {
+const Input = ({ width, height, placeholder }) => {
   return (
-    <StyleInput width={width} placeholder={placeholder} />
+    <StyleInput width={width} placeholder={placeholder} height={height} />
   )
 }
 
