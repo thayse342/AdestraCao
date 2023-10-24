@@ -63,4 +63,8 @@ export const LayoutStyled = styled.div`
   .header-layout > a > svg {
     margin-left: 5px;
   }
+
+  main {
+    width: calc(100vw - 264px);
+  }
 `;
