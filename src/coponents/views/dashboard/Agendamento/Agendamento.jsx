@@ -10,7 +10,7 @@ const Agendamento = ({ agendamento }) => {
 
   return (
     <StylesAgendamento>
-      <div className='todo' style={{textDecoration: todo.completo ? "line-through" : ""}}>
+      <div className='todo'>
           <div className="conteudo">
 
             {/* Exibe o texto da tarefa */}
@@ -24,13 +24,13 @@ const Agendamento = ({ agendamento }) => {
           <div>
 
             {/* Botão que irá marcar uma tarefa como concluída */}
-            <button className='complete' onClick={() => completeTodo(todo.id)}><CheckCircle size={20} /></button>
+            <button className='complete' onClick={() => completeTodo(agendamento.id)}><CheckCircle size={20} /></button>
 
             {/* Botão que irá deletar uma tarefa */}
-            <button className='delete' onClick={() => removeTodo(todo.id)}><Trash size={20} /></button>
+            <button className='delete' onClick={() => removeTodo(agendamento.id)}><Trash size={20} /></button>
 
             {/* Botão para iniciar a edição de uma tarefa */}
-            <button className='edit' onClick={() => startEditingTodo(todo.id, todo.texto)}><Pencil size={20} /></button>
+            <button className='edit' onClick={() => startEditingTodo(agendamento.id, todo.texto)}><Pencil size={20} /></button>
 
           </div>
         </div>
@@ -39,18 +39,3 @@ const Agendamento = ({ agendamento }) => {
 }
 
 export default Agendamento
-
-const StylesAgendamento = styled.li`
-  width: 100%;
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-  background-color: ${props => props.theme.white50};;
-
-  > .valor{
-    font-weight: bold;
-  }
-`

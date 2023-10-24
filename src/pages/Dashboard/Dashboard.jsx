@@ -5,14 +5,15 @@ import Agendamento from '../../coponents/views/dashboard/Agendamento/Agendamento
 const Dashboard = () => {
 
 
-
+return (
     <div>
          <Layout >
-            <Agendamento>
+            
                 <h1>Olá Mundo</h1>
-            </Agendamento>
+            
          </Layout>
     </div>
+)
 
 
 }
