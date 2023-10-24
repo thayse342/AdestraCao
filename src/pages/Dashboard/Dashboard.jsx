@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
-import Layout from '../../components/shared/Layout/Layout'
+import Layout from '../../coponents/shared/Layout/Layout'
+import Agendamento from '../../coponents/views/dashboard/Agendamento/Agendamento'
 
 const Dashboard = () => {
 
 
-  return (
+
     <div>
          <Layout >
-            <h1>Olá Mundo</h1>
+            <Agendamento>
+                <h1>Olá Mundo</h1>
+            </Agendamento>
          </Layout>
     </div>
 
-  )
+
 }
 
 export default Dashboard
