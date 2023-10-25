@@ -6,7 +6,7 @@ const LabelEInput = ({ label, placeholder }) => {
   return (
     <StyleLabelEInput>
       <label htmlFor="">{label}</label>
-      <Input width={440} height={60} placeholder={placeholder} />
+      <Input width={"440px"} height={"60px"} placeholder={placeholder} />
     </StyleLabelEInput>
   )
 }
