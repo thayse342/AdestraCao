@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { GlobalStyle } from './style/GlobalStyles'
-import Agendamento from './pages/agendamento/agendamento'
+import Agendamento from './pages/Agendamento/agendamento'
 
 const Rotas = () => {
   return (
