@@ -65,6 +65,49 @@ const StyleLanding = styled.main`
     font-size: 36px;
     font-weight: 600;
   }
+
+  .porque{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #36e2ff;
+    width: 100%;
+
+  }
+  .porque .adestrador{
+    padding: 50px;
+  }
+
+  .containerpq {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .containerpq h2 {
+    width: fit-content;
+    font-size: 48px;
+    font-weight: 600;
+    
+  }
+
+  .contents{
+    display: flex;
+    gap: 100px;
+  }
+
+  .porque .content{
+    display: flex;
+  }
+  .porque .icone{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+  }
+  .porque .icone img{
+    width: 25px;
+  }
 `;
 
 export default StyleLanding;
