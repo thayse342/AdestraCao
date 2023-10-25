@@ -1,11 +1,21 @@
-import React from 'react'
-import Layout from '../../components/shared/layout/Layout'
+import React, { useState } from 'react'
+import Agendamentoview from '../../components/views/dashboard/Agendamento/Agendamento'
+import Layout from '../../components/shared/Layout/Layout'
+import Search from '../../components/views/dashboard/Search/Search'
+
 
 const Agendamento = () => {
-  return (
-    <Layout><div>agendamento</div></Layout>
-    
-  )
+
+
+return (
+    <div>
+         <Layout >
+            <Search />
+            <Agendamentoview/>
+         </Layout>
+    </div>
+)
+
 }
 
 export default Agendamento
