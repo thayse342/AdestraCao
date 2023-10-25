@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-<<<<<<< HEAD
-import Layout from '../../coponents/shared/Layout/Layout'
-import Agendamento from '../../coponents/views/dashboard/Agendamento/Agendamento'
+import Agendamento from '../../components/views/dashboard/Agendamento/Agendamento'
+import Layout from '../../components/shared/Layout/Layout'
+import Search from '../../components/views/dashboard/Search/Search'
+
 
 const Dashboard = () => {
 
@@ -9,24 +10,12 @@ const Dashboard = () => {
 return (
     <div>
          <Layout >
-            
-                <h1>Olá Mundo</h1>
-            
+            <Search />
+            <Agendamento/>
          </Layout>
     </div>
 )
 
-
-=======
-import Layout from '../../components/shared/Layout/Layout'
-
-const Dashboard = () => {
-
-  return (
-      <></>
-
-  )
->>>>>>> fa35c19ecfb10160fb74cbd42640c39fa73c26ae
 }
 
 export default Dashboard
