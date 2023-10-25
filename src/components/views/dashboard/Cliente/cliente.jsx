@@ -4,10 +4,6 @@ import styled, { useTheme } from 'styled-components'
 
 const Clienteview = () => {
 
-
-
-
-
   return (
     <StylesCliente>
       <p>Igor</p>
