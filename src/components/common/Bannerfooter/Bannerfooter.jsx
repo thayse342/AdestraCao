@@ -15,8 +15,8 @@ const Bannerfooter = ({ onClick }) => {
 
       <form>
         <Input width={"540px"} height={"60px"} placeholder={"email@email.com"} />
-        <Button texto={"ENVIAR"} variant={"primary"} width={"100px"} onClick={() => console.log("ok")} fontSize={"16px"} />
-        <button className='whatslogo' onClick={onClick}><WhatsappLogo size={50} /></button>
+        <Button texto={"ENVIAR"} variant={"primary"} width={"100px"} height={"40px"} onClick={() => console.log("ok")} fontSize={"16px"} />
+        <button className='whatslogo' onClick={onClick}><WhatsappLogo size={45} /></button>
       </form>
       <Logo className='logo' />
       <p className='direitosresevados'>Todos os direitos reservados©</p>
