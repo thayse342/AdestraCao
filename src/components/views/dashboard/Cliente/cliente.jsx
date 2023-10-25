@@ -20,3 +20,23 @@ const Clienteview = () => {
 }
 
 export default Clienteview
+
+const StylesCliente = styled.li`
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+
+    > button {
+    background-color: transparent; /* Fundo branco */
+    border: 2px solid black; /* Borda verde médio */
+  }
+
+    button:hover {
+    opacity: 1;
+    transform: scale(1.05); /* Efeito de escala suave no hover */
+}
+`
