@@ -1,4 +1,4 @@
-import {Trash, Pencil} from "@phosphor-icons/react";
+import {Trash, Pencil, User} from "@phosphor-icons/react";
 import React from 'react'
 import styled, { useTheme } from 'styled-components'
 
@@ -6,6 +6,7 @@ const Clienteview = () => {
 
   return (
     <StylesCliente>
+      <button><User size={22} color='black'/></button>
       <p>Igor</p>
       <p>40028922</p>
       <p>igor@email.com</p>
