@@ -4,6 +4,7 @@ import { GlobalStyle } from "./style/GlobalStyles";
 import Agendamento from "./pages/agendamento/agendamento";
 import Login from "./pages/Login/Login";
 import Landinpage from "./pages/Landingpage/Landinpage";
+import Clientes from "./pages/Clientes/Clientes"
 
 const Rotas = () => {
   return (
@@ -13,7 +14,7 @@ const Rotas = () => {
         <Route path="/login" element={<Login/>} />
         <Route path="/configAdmin" element={<Login/>} />
         <Route path="/agendamento" element={<Agendamento/>} />
-        <Route path="/cadastro" element={<Agendamento/>} />
+        <Route path="/clientes" element={<Clientes/>} />
         <Route path="/" element={<Landinpage/>} />
       </Routes>
     </BrowserRouter>
