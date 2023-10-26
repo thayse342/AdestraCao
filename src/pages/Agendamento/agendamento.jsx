@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Agendamentoview from '../../components/views/dashboard/Agendamento/Agendamento';
 import Layout from '../../components/shared/Layout/Layout';
 import Search from '../../components/views/dashboard/Search/Search';
-import { getAgendamento, updateAgendamento, deleteAgendamento } from '../../service/api';
+import { getAgendamento, updateAgendamento, deleteAgendamento, addAgendamento } from '../../service/api';
 import Modal from '../../components/common/Modal/Modal';
 
 const Agendamento = () => {
@@ -11,19 +11,30 @@ const Agendamento = () => {
     const [listaAgendamento, setListaAgendamento] = useState([]);
     const [selectedAgendamento, setSelectedAgendamento] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [isAdding, setIsAdding] = useState(false);
 
     async function handleBuscarAgendamento() {
         const resposta = await getAgendamento();
-        setListaAgendamento(resposta); // Define a lista de agendamentos com base na resposta da API
+        setListaAgendamento(resposta);
     }
 
     useEffect(() => {
-        handleBuscarAgendamento(); // Chama a função de busca ao montar o componente
-    }, []); // O segundo argumento vazio faz com que a função seja chamada apenas uma vez no início
+        handleBuscarAgendamento();
+    }, []);
 
     const handleOpenEditModal = (agendamento) => {
         setSelectedAgendamento(agendamento);
         setIsEditing(true);
+    }
+
+    const handleOpenAddModal = () => {
+        setSelectedAgendamento({
+            cliente: '',
+            pet: '',
+            data: '',
+            duracao: '',
+        });
+        setIsAdding(true);
     }
 
     const handleCloseEditModal = () => {
@@ -33,9 +44,7 @@ const Agendamento = () => {
 
     const handleSaveEdit = async (editedAgendamento) => {
         try {
-            // Chame a função de atualização da API (updateAgendamento) para salvar as alterações
             await updateAgendamento(editedAgendamento._id, editedAgendamento);
-            // Atualize o estado da lista de agendamentos após a edição
             const updatedList = listaAgendamento.map((agendamento) => {
                 if (agendamento._id === editedAgendamento._id) {
                     return editedAgendamento;
@@ -43,7 +52,6 @@ const Agendamento = () => {
                 return agendamento;
             });
             setListaAgendamento(updatedList);
-            // Feche o modal de edição
             handleCloseEditModal();
         } catch (error) {
             console.error('Erro ao atualizar o agendamento', error);
@@ -52,27 +60,32 @@ const Agendamento = () => {
 
     const handleExcluirAgendamento = async (agendamentoId) => {
         try {
-          // Chame a função de exclusão do agendamento
-          await deleteAgendamento(agendamentoId);
-      
-          // Atualize o estado da lista de agendamentos após a exclusão bem-sucedida
-          const updatedList = listaAgendamento.filter((agendamento) => agendamento._id !== agendamentoId);
-          setListaAgendamento(updatedList);
-      
-          // Feche o modal de edição (se estiver aberto)
-          handleCloseEditModal();
-      
-          console.log(`Agendamento com ID ${agendamentoId} excluído com sucesso.`);
+            await deleteAgendamento(agendamentoId);
+            const updatedList = listaAgendamento.filter((agendamento) => agendamento._id !== agendamentoId);
+            setListaAgendamento(updatedList);
+            handleCloseEditModal();
+            console.log(`Agendamento com ID ${agendamentoId} excluído com sucesso.`);
         } catch (error) {
-          console.error(`Erro ao excluir o agendamento com ID ${agendamentoId}:`, error);
+            console.error(`Erro ao excluir o agendamento com ID ${agendamentoId}:`, error);
         }
-      };
-      
-    
+    };
+
+    const handleSaveAdd = async () => {
+        try {
+            const newAgendamento = { ...selectedAgendamento };
+            const createdAgendamento = await addAgendamento(newAgendamento);
+            setListaAgendamento([...listaAgendamento, createdAgendamento]);
+            setIsAdding(false);
+        } catch (error) {
+            console.error('Erro ao criar o agendamento', error);
+        }
+    };
+
     return (
         <div>
             <Layout>
-                <Search />
+                <Search onAdd={handleOpenAddModal} />
+                
                 {listaAgendamento.map((agendamento) => (
                     <Agendamentoview
                         key={agendamento._id}
@@ -86,64 +99,106 @@ const Agendamento = () => {
                     />
                 ))}
 
-                {/* Modal para edição */}
                 {selectedAgendamento && (
                     <Modal
-                    isOpen={isEditing}
-                    setCloseModal={handleCloseEditModal}
-                    botaosalvar={() => handleSaveEdit(selectedAgendamento)}
-                    titulo="Editar Agendamento"
-                    mensagemconfirmacao="Confirma as alterações"
-                >
-                    {/* Campo de edição para o cliente */}
-                    <label>Cliente</label>
-                    <input
-                        type="text"
-                        value={selectedAgendamento.cliente}
-                        onChange={(e) => {
-                            const editedAgendamento = { ...selectedAgendamento };
-                            editedAgendamento.cliente = e.target.value;
-                            setSelectedAgendamento(editedAgendamento);
-                        }}
-                    />
-                
-                    {/* Campo de edição para o pet */}
-                    <label>Pet</label>
-                    <input
-                        type="text"
-                        value={selectedAgendamento.pet}
-                        onChange={(e) => {
-                            const editedAgendamento = { ...selectedAgendamento };
-                            editedAgendamento.pet = e.target.value;
-                            setSelectedAgendamento(editedAgendamento);
-                        }}
-                    />
-                
-                    {/* Campo de edição para a data */}
-                    <label>Data</label>
-                    <input
-                        type="text"
-                        value={selectedAgendamento.data}
-                        onChange={(e) => {
-                            const editedAgendamento = { ...selectedAgendamento };
-                            editedAgendamento.data = e.target.value;
-                            setSelectedAgendamento(editedAgendamento);
-                        }}
-                    />
-                
-                    {/* Campo de edição para a duração */}
-                    <label>Duração</label>
-                    <input
-                        type="text"
-                        value={selectedAgendamento.duracao}
-                        onChange={(e) => {
-                            const editedAgendamento = { ...selectedAgendamento };
-                            editedAgendamento.duracao = e.target.value;
-                            setSelectedAgendamento(editedAgendamento);
-                        }}
-                    />
-                </Modal>
-                
+                        isOpen={isEditing}
+                        setCloseModal={handleCloseEditModal}
+                        botaosalvar={() => handleSaveEdit(selectedAgendamento)}
+                        titulo="Editar Agendamento"
+                        mensagemconfirmacao="Confirma as alterações"
+                    >
+                        <label>Cliente</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.cliente}
+                            onChange={(e) => {
+                                const editedAgendamento = { ...selectedAgendamento };
+                                editedAgendamento.cliente = e.target.value;
+                                setSelectedAgendamento(editedAgendamento);
+                            }}
+                        />
+                        <label>Pet</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.pet}
+                            onChange={(e) => {
+                                const editedAgendamento = { ...selectedAgendamento };
+                                editedAgendamento.pet = e.target.value;
+                                setSelectedAgendamento(editedAgendamento);
+                            }}
+                        />
+                        <label>Data</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.data}
+                            onChange={(e) => {
+                                const editedAgendamento = { ...selectedAgendamento };
+                                editedAgendamento.data = e.target.value;
+                                setSelectedAgendamento(editedAgendamento);
+                            }}
+                        />
+                        <label>Duração</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.duracao}
+                            onChange={(e) => {
+                                const editedAgendamento = { ...selectedAgendamento };
+                                editedAgendamento.duracao = e.target.value;
+                                setSelectedAgendamento(editedAgendamento);
+                            }}
+                        />
+                    </Modal>
+                )}
+
+                {isAdding && (
+                    <Modal
+                        isOpen={isAdding}
+                        setCloseModal={() => setIsAdding(false)}
+                        botaosalvar={() => handleSaveAdd()}
+                        titulo="Adicionar Agendamento"
+                        mensagemconfirmacao="Confirma as informações"
+                    >
+                        <label>Cliente</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.cliente}
+                            onChange={(e) => {
+                                const addedAgendamento = { ...selectedAgendamento };
+                                addedAgendamento.cliente = e.target.value;
+                                setSelectedAgendamento(addedAgendamento);
+                            }}
+                        />
+                        <label>Pet</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.pet}
+                            onChange={(e) => {
+                                const addedAgendamento = { ...selectedAgendamento };
+                                addedAgendamento.pet = e.target.value;
+                                setSelectedAgendamento(addedAgendamento);
+                            }}
+                        />
+                        <label>Data</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.data}
+                            onChange={(e) => {
+                                const addedAgendamento = { ...selectedAgendamento };
+                                addedAgendamento.data = e.target.value;
+                                setSelectedAgendamento(addedAgendamento);
+                            }}
+                        />
+                        <label>Duração</label>
+                        <input
+                            type="text"
+                            value={selectedAgendamento.duracao}
+                            onChange={(e) => {
+                                const addedAgendamento = { ...selectedAgendamento };
+                                addedAgendamento.duracao = e.target.value;
+                                setSelectedAgendamento(addedAgendamento);
+                            }}
+                        />
+                    </Modal>
                 )}
             </Layout>
         </div>
