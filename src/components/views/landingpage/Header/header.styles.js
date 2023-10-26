@@ -1,24 +1,28 @@
 import styled from "styled-components"
 
-export  const HeaderContainer = styled.header`
-background-color: #19DEFF;
+export  const HeaderStyle = styled.header`
+	max-width: 100vw;
+	height: 110px;
+	padding: 30px 0;
+	background-color: #19DEFF;
 
-padding: 15px;
+	.container-header {
+		display: grid;
+		justify-content: center;
+    margin: 0 auto;
+	}
 
+	.lista-links{
+		display: flex;
+		gap: 105px;
+	}
 
-.litalinks{
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-}
-
- .link{
-font-family: Poppins;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-
-
-}
+ 	.link{
+		padding: 32px;
+		font-family: Poppins;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: normal;
+	}
 `

@@ -12,4 +12,9 @@ export const StyleCard = styled.div`
   border-radius: 8px;
   background: #36E2FF;
   text-align: center;
+  transition: ease-in-out .2s;
+
+  &:hover {
+    scale: 1.1;
+  }
 `
