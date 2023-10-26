@@ -2,7 +2,7 @@ import { Trash, Pencil, Check } from "@phosphor-icons/react";
 import React from 'react';
 import styled from 'styled-components';
 
-const Agendamentoview = ({ id, cliente, pet, data, duracao }) => {
+const Agendamentoview = ({ id, cliente, pet, data, duracao, onEdit }) => {
   return (
 
 
@@ -15,7 +15,7 @@ const Agendamentoview = ({ id, cliente, pet, data, duracao }) => {
       <p>Dog: {pet}</p>
       <p>Data: {data}</p>
       <p>Duração: {duracao}</p>
-      <button><Pencil size={25} color='black' /></button>
+      <button onClick={() => onEdit({ cliente, pet, data, duracao})}><Pencil size={25} color='black' /></button>
       <button><Trash size={25} color='black' /></button>
     </StylesAgendamento>
   );
@@ -34,7 +34,7 @@ const StylesAgendamento = styled.li`
 
   > button {
     background-color: transparent;
-    border: 2px solid black;
+    border: none;
   }
 
   button:hover {
