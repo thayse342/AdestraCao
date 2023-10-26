@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalStyle } from "./style/GlobalStyles";
 import Agendamento from "./pages/Agendamento/agendamento";
@@ -9,7 +8,6 @@ import Clientes from "./pages/Clientes/Clientes"
 const Rotas = () => {
   return (
     <BrowserRouter>
-      <GlobalStyle />
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/configAdmin" element={<Login/>} />
