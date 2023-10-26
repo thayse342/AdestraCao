@@ -20,14 +20,24 @@ export const StyleButton = styled.button`
 export const PrimaryButton = styled(StyleButton)`
   width: ${props => props.width ? props.width : 'fit-content'};
   height: ${props => props.height ? props.height : 'fit-content'};
-   background: #5EB1FF;
-   color: white;
+ background: #5EB1FF;
+  color: white;
+  display: flex;
+  padding: 15px 58px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 `
 export const SecondaryButton = styled(StyleButton)`
   width: ${props => props.width ? props.width : 'fit-content'};
   height: ${props => props.height ? props.height : 'fit-content'};
   background: #fff;
-   color: #5DB1FF;
+  color: #5DB1FF;
+  display: flex;
+  padding: 15px 58px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
    &:hover{
     color: #C3E2FF;
   }
