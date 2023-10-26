@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Agendamentoview from '../../components/views/dashboard/Agendamento/Agendamento';
 import Layout from '../../components/shared/Layout/Layout';
 import Search from '../../components/views/dashboard/Search/Search';
-import { getAgendamento, updateAgendamento } from '../../service/api';
+import { getAgendamento, updateAgendamento, deleteAgendamento } from '../../service/api';
 import Modal from '../../components/common/Modal/Modal';
 
 const Agendamento = () => {
@@ -49,6 +49,25 @@ const Agendamento = () => {
             console.error('Erro ao atualizar o agendamento', error);
         }
     }
+
+    const handleExcluirAgendamento = async (agendamentoId) => {
+        try {
+          // Chame a função de exclusão do agendamento
+          await deleteAgendamento(agendamentoId);
+      
+          // Atualize o estado da lista de agendamentos após a exclusão bem-sucedida
+          const updatedList = listaAgendamento.filter((agendamento) => agendamento._id !== agendamentoId);
+          setListaAgendamento(updatedList);
+      
+          // Feche o modal de edição (se estiver aberto)
+          handleCloseEditModal();
+      
+          console.log(`Agendamento com ID ${agendamentoId} excluído com sucesso.`);
+        } catch (error) {
+          console.error(`Erro ao excluir o agendamento com ID ${agendamentoId}:`, error);
+        }
+      };
+      
     
     return (
         <div>
@@ -63,6 +82,7 @@ const Agendamento = () => {
                         data={agendamento.data}
                         duracao={agendamento.duracao}
                         onEdit={() => handleOpenEditModal(agendamento)}
+                        onExcluir={() => handleExcluirAgendamento(agendamento._id)}
                     />
                 ))}
 
