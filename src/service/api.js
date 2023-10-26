@@ -23,4 +23,12 @@ export const getClientes = async () => {
       throw error; // Lidar com erros de solicitação aqui, se necessário
     }
   }
-  
+
+    export const deleteAgendamento = async (id, data) => {
+      try {
+        // Realize uma solicitação PUT para a rota de atualização da API
+        const resposta = await api.delete(`/agendamento/${id}`, data);
+        return resposta.data;
+      } catch (error) {
+        throw error; // Lidar com erros de solicitação aqui, se necessário
+      }};
