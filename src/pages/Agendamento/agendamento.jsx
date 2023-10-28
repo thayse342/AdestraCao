@@ -81,6 +81,10 @@ const Agendamento = () => {
         }
     };
 
+    useEffect(() => {
+        handleBuscarAgendamento();
+    }, [listaAgendamento]);
+
     return (
         <div>
             <Layout>
