@@ -8,9 +8,9 @@ import Login from "./pages/Login/Login";
 import Landinpage from "./pages/Landingpage/Landinpage";
 import Clientes from "./pages/Clientes/Clientes"
 
-import Agendamento from "./pages/agendamento/agendamento";
-import Login from "./pages/Login/Login";
-import Landinpage from "./pages/Landingpage/Landinpage";
+
+
+
 
 
 const Rotas = () => {
