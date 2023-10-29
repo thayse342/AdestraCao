@@ -16,6 +16,34 @@ gap: 15px;
   
  }
 
+ .error-message {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fad2e1;
+  border: 1px solid #7c193d;
+  color: #7c193d;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1;
+  opacity: 1; 
+}
+
+.success-message {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #EFE;
+  border: 1px solid #658666;
+  color: #658666;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1;
+  opacity: 1; 
+}
+
  .inputItem{
     width: 45%;
  }
