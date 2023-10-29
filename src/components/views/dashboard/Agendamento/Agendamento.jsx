@@ -1,20 +1,25 @@
 import { Trash, Pencil, Check } from "@phosphor-icons/react";
-import React from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 
 const Agendamentoview = ({ id, cliente, pet, data, duracao, onEdit, onExcluir }) => {
+  const [isStrikethrough, setIsStrikethrough] = useState(false);
+
+  const handleCheckClick = () => {
+    setIsStrikethrough(!isStrikethrough);
+  }
+
   return (
 
 
     <StylesAgendamento>
-      
-      {console.log(`ID: ${id}, Cliente: ${cliente}, Pet: ${pet}, Data: ${data}, Duração: ${duracao}`)}
-
-      <button><Check size={22} color='black' /></button>
-      <p>Cliente: {cliente}</p>
-      <p>Dog: {pet}</p>
-      <p>Data: {data}</p>
-      <p>Duração: {duracao}</p>
+      <button onClick={handleCheckClick}>
+        <Check size={22} color={isStrikethrough ? 'blue' : 'black'} />
+      </button>
+      <p style={{ textDecoration: isStrikethrough ? "line-through" : "none" }}>Cliente: {cliente}</p>
+      <p style={{ textDecoration: isStrikethrough ? "line-through" : "none" }}>Dog: {pet}</p>
+      <p style={{ textDecoration: isStrikethrough ? "line-through" : "none" }}>Data: {data}</p>
+      <p style={{ textDecoration: isStrikethrough ? "line-through" : "none" }}>Duração: {duracao}</p>
       <button onClick={() => onEdit({ cliente, pet, data, duracao})}><Pencil size={25} color='black' /></button>
       <button onClick={onExcluir}><Trash size={25} color='black' /></button>
     </StylesAgendamento>
