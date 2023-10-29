@@ -25,10 +25,30 @@ export const getClientes = async () => {
     }
   };
 
+  export const addCliente = async (data) => {
+    try {
+      // Realize uma solicitação POST para a rota de criação de agendamento da API
+      const resposta = await api.post('/cliente', data);
+      return resposta.data;
+    } catch (error) {
+      throw error; // Lidar com erros de solicitação aqui, se necessário
+    }
+  };
+
   export const updateAgendamento = async (id, data) => {
     try {
       // Realize uma solicitação PUT para a rota de atualização da API
       const resposta = await api.put(`/agendamento/${id}`, data);
+      return resposta.data;
+    } catch (error) {
+      throw error; // Lidar com erros de solicitação aqui, se necessário
+    }
+  }
+
+  export const updateCliente = async (id, data) => {
+    try {
+      // Realize uma solicitação PUT para a rota de atualização da API
+      const resposta = await api.put(`/cliente/${id}`, data);
       return resposta.data;
     } catch (error) {
       throw error; // Lidar com erros de solicitação aqui, se necessário
@@ -43,6 +63,15 @@ export const getClientes = async () => {
       } catch (error) {
         throw error; // Lidar com erros de solicitação aqui, se necessário
       }};
+
+      export const deleteCliente = async (id, data) => {
+        try {
+          // Realize uma solicitação PUT para a rota de atualização da API
+          const resposta = await api.delete(`/cliente/${id}`, data);
+          return resposta.data;
+        } catch (error) {
+          throw error; // Lidar com erros de solicitação aqui, se necessário
+        }};
 
       export const login = async (email, senha) => {
         try {
