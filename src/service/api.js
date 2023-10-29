@@ -3,6 +3,7 @@ import axios from 'axios'
 const api = axios.create({
     baseURL: 'http://localhost:3000/',
 })
+const adestradores =[];
 
 export const getAgendamento = async () => {
     const resposta = await api.get(`/agendamento`)
@@ -31,16 +32,14 @@ export const getClientes = async () => {
         return resposta.data;
       } catch (error) {
         throw error; // Lidar com erros de solicitação aqui, se necessário
-
       }};
 
-      export const addAgendamento = async (data) => {
+      export const login = async (email, senha) => {
         try {
-          // Realize uma solicitação POST para a rota de criação de agendamento da API
-          const resposta = await api.post('/agendamento', data);
-          return resposta.data;
+          const response = await api.post("/login", { email, senha });
+          return response.data;
         } catch (error) {
-          throw error; // Lidar com erros de solicitação aqui, se necessário
+          throw error;
         }
-      };
-      
+      }
+
