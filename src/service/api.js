@@ -15,6 +15,16 @@ export const getClientes = async () => {
     return resposta.data
   }
 
+  export const addAgendamento = async (data) => {
+    try {
+      // Realize uma solicitação POST para a rota de criação de agendamento da API
+      const resposta = await api.post('/agendamento', data);
+      return resposta.data;
+    } catch (error) {
+      throw error; // Lidar com erros de solicitação aqui, se necessário
+    }
+  };
+
   export const updateAgendamento = async (id, data) => {
     try {
       // Realize uma solicitação PUT para a rota de atualização da API
