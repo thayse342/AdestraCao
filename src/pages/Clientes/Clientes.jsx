@@ -12,6 +12,7 @@ const Clientes = () => {
     const [selectedCliente, setSelectedCliente] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
+    const [search, setSearch] = useState("");
 
     async function handleBuscarClientes() {
         const resposta = await getClientes();
@@ -87,8 +88,11 @@ const Clientes = () => {
 return (
     <div>
          <Layout >
-            <Search onAdd={handleOpenAddModal}/>
-            {listaCliente.map((cliente) => (
+            <Search onAdd={handleOpenAddModal} search={search} setSearch={setSearch} />
+
+            {listaCliente.filter((cliente) =>
+            cliente.nome.toLowerCase().includes(search.toLowerCase())
+            ).map((cliente) => (
                     <Clienteview
                         key={cliente._id} // Certifique-se de usar a propriedade correta para a chave
                         id={cliente._id}
