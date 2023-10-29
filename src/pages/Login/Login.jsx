@@ -106,10 +106,11 @@ const Login = () => {
           setAlertMessage("");
           setMessageType(null);
         }, 3000);
-      } else if (response.status === 404) {
-        setModalConfirmMessage("E-mail não encontrado no banco de dados");
+      } else if (error.response && error.response.status === 404) {
+        setAlertMessage("E-mail não cadastrado");
+        setMessageType("error");
         setTimeout(() => {
-          setModalConfirmMessage("");
+          setAlertMessage("");
         }, 3000);
       }
     }
