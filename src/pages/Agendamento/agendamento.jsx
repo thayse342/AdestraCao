@@ -20,6 +20,9 @@ const Agendamento = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [search, setSearch] = useState("");
+  const [messageType, setMessageType] = useState("error");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [messageDuration, setMessageDuration] = useState(3000);
 
   async function handleBuscarAgendamento() {
     const resposta = await getAgendamento();
@@ -61,8 +64,13 @@ const Agendamento = () => {
       });
       setListaAgendamento(updatedList);
       handleCloseEditModal();
+      setAlertMessage("Agendamento editado com sucesso.");
+      setMessageType("success");
+      setTimeout(() => setAlertMessage(null), messageDuration);
     } catch (error) {
-      console.error("Erro ao atualizar o agendamento", error);
+      setAlertMessage("Erro ao atualizar o agendamento: " + error);
+      setMessageType("error");
+      setTimeout(() => setAlertMessage(null), messageDuration);
     }
   };
 
@@ -74,12 +82,13 @@ const Agendamento = () => {
       );
       setListaAgendamento(updatedList);
       handleCloseEditModal();
-      console.log(`Agendamento com ID ${agendamentoId} excluído com sucesso.`);
+      setAlertMessage("Agendamento excluído com sucesso.");
+      setMessageType("success");
+      setTimeout(() => setAlertMessage(null), messageDuration);
     } catch (error) {
-      console.error(
-        `Erro ao excluir o agendamento com ID ${agendamentoId}:`,
-        error
-      );
+      setAlertMessage("Erro ao excluir o agendamento: " + error.message);
+      setMessageType("error");
+      setTimeout(() => setAlertMessage(null), messageDuration);
     }
   };
 
@@ -89,8 +98,13 @@ const Agendamento = () => {
       const createdAgendamento = await addAgendamento(newAgendamento);
       setListaAgendamento([...listaAgendamento, createdAgendamento]);
       setIsAdding(false);
+      setAlertMessage("Agendamento criado com sucesso.");
+      setMessageType("success");
+      setTimeout(() => setAlertMessage(null), messageDuration);
     } catch (error) {
-      console.error("Erro ao criar o agendamento", error);
+      setAlertMessage("Erro ao criar o agendamento" + error.message);
+      setMessageType("error");
+      setTimeout(() => setAlertMessage(null), messageDuration);
     }
   };
 
@@ -103,9 +117,17 @@ const Agendamento = () => {
       <AgendamentoStyled>
         <Search onAdd={handleOpenAddModal} search={search} setSearch={setSearch} />
 
-        {listaAgendamento.filter((agendamento) =>
-        agendamento.cliente.toLowerCase().includes(search.toLowerCase())
-        ).map((agendamento) => (
+        {messageType === "error" && alertMessage && (
+        <div className="error-message">{alertMessage}</div>
+        )}
+        {messageType === "success" && alertMessage && (
+        <div className="success-message">{alertMessage}</div>
+        )}
+        {listaAgendamento
+          .filter((agendamento) =>
+            agendamento.cliente && agendamento.cliente.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((agendamento) => (
           <Agendamentoview
             key={agendamento._id}
             id={agendamento._id}

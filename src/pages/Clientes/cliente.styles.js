@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const AgendamentoStyled = styled.div`
+const ClienteStyled = styled.div`
 padding: 25px;
 display: flex;
 flex-direction: column;
@@ -49,4 +49,4 @@ gap: 15px;
  }
 `;
 
-export default AgendamentoStyled;
+export default ClienteStyled;

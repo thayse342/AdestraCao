@@ -5,6 +5,7 @@ import Search from '../../components/views/dashboard/Search/Search'
 import Clienteview from '../../components/views/dashboard/Cliente/cliente'
 import { getClientes, updateCliente, deleteCliente, addCliente } from '../../service/api';
 import Modal from '../../components/common/Modal/Modal';
+import ClienteStyled from './cliente.styles';
 
 const Clientes = () => {
     const params = useParams();
@@ -13,6 +14,9 @@ const Clientes = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
     const [search, setSearch] = useState("");
+    const [messageType, setMessageType] = useState("error");
+    const [alertMessage, setAlertMessage] = useState("");
+    const [messageDuration, setMessageDuration] = useState(3000);
 
     async function handleBuscarClientes() {
         const resposta = await getClientes();
@@ -53,8 +57,13 @@ const Clientes = () => {
             });
             setListaCliente(updatedList);
             handleCloseEditModal();
+            setAlertMessage("Cliente editado com sucesso.");
+            setMessageType("success");
+            setTimeout(() => setAlertMessage(null), messageDuration);
         } catch (error) {
-            console.error('Erro ao atualizar o cliente', error);
+            setAlertMessage("Erro ao atualizar o cliente: " + error);
+            setMessageType("error");
+            setTimeout(() => setAlertMessage(null), messageDuration);
         }
     }
 
@@ -64,9 +73,13 @@ const Clientes = () => {
             const updatedList = listaCliente.filter((cliente) => cliente._id !== clienteId);
             setListaCliente(updatedList);
             handleCloseEditModal();
-            console.log(`Cliente com ID ${clienteId} excluído com sucesso.`);
+            setAlertMessage("Cliente excluído com sucesso.");
+            setMessageType("success");
+            setTimeout(() => setAlertMessage(null), messageDuration);
         } catch (error) {
-            console.error(`Erro ao excluir o cliente com ID ${clienteId}:`, error);
+            setAlertMessage("Erro ao excluir o cliente: " + error.message);
+            setMessageType("error");
+            setTimeout(() => setAlertMessage(null), messageDuration);
         }
     };
 
@@ -76,8 +89,13 @@ const Clientes = () => {
             const createdCliente = await addCliente(newCliente);
             setListaCliente([...listaCliente, createdCliente]);
             setIsAdding(false);
+            setAlertMessage("Cliente criado com sucesso.");
+            setMessageType("success");
+            setTimeout(() => setAlertMessage(null), messageDuration);
         } catch (error) {
-            console.error('Erro ao criar o cliente', error);
+            setAlertMessage("Erro ao criar o cliente" + error.message);
+            setMessageType("error");
+            setTimeout(() => setAlertMessage(null), messageDuration);
         }
     };
 
@@ -88,105 +106,115 @@ const Clientes = () => {
 return (
     <div>
          <Layout >
-            <Search onAdd={handleOpenAddModal} search={search} setSearch={setSearch} />
+            <ClienteStyled>
 
-            {listaCliente.filter((cliente) =>
-            cliente.nome.toLowerCase().includes(search.toLowerCase())
-            ).map((cliente) => (
-                    <Clienteview
-                        key={cliente._id} // Certifique-se de usar a propriedade correta para a chave
-                        id={cliente._id}
-                        nome={cliente.nome}
-                        email={cliente.email}
-                        telefone={cliente.telefone}
-                        onEdit={() => handleOpenEditModal(cliente)}
-                        onExcluir={() => handleExcluirCliente(cliente._id)}
-                    />
-                ))}
+                <Search onAdd={handleOpenAddModal} search={search} setSearch={setSearch} />
 
-
-                {selectedCliente && (
-                    <Modal
-                        isOpen={isEditing}
-                        setCloseModal={handleCloseEditModal}
-                        botaosalvar={() => handleSaveEdit(selectedCliente)}
-                        titulo="Editar Cliente"
-                        mensagemconfirmacao="Confirma as alterações"
-                    >
-                        <label>Nome</label>
-                        <input
-                            type="text"
-                            value={selectedCliente.nome}
-                            onChange={(e) => {
-                                const editedCliente = { ...selectedCliente };
-                                editedCliente.nome = e.target.value;
-                                setSelectedCliente(editedCliente);
-                            }}
-                        />
-                        <label>Telefone</label>
-                        <input
-                            type="text"
-                            value={selectedCliente.telefone}
-                            onChange={(e) => {
-                                const editedCliente = { ...selectedCliente };
-                                editedCliente.telefone = e.target.value;
-                                setSelectedCliente(editedCliente);
-                            }}
-                        />
-                        <label>Email</label>
-                        <input
-                            type="text"
-                            value={selectedCliente.email}
-                            onChange={(e) => {
-                                const editedCliente = { ...selectedCliente };
-                                editedCliente.email = e.target.value;
-                                setSelectedCliente(editedCliente);
-                            }}
-                        />
-                    </Modal>
+                {messageType === "error" && alertMessage && (
+                <div className="error-message">{alertMessage}</div>
                 )}
-
-                {isAdding && (
-                    <Modal
-                        isOpen={isAdding}
-                        setCloseModal={() => setIsAdding(false)}
-                        botaosalvar={() => handleSaveAdd()}
-                        titulo="Adicionar Cliente"
-                        mensagemconfirmacao="Confirma as informações"
-                    >
-                        <label>Nome</label>
-                        <input
-                            type="text"
-                            value={selectedCliente.nome}
-                            onChange={(e) => {
-                                const addedCliente = { ...selectedCliente };
-                                addedCliente.nome = e.target.value;
-                                setSelectedCliente(addedCliente);
-                            }}
-                        />
-                        <label>Telefone</label>
-                        <input
-                            type="text"
-                            value={selectedCliente.telefone}
-                            onChange={(e) => {
-                                const addedCliente = { ...selectedCliente };
-                                addedCliente.telefone = e.target.value;
-                                setSelectedCliente(addedCliente);
-                            }}
-                        />
-                        <label>Email</label>
-                        <input
-                            type="text"
-                            value={selectedCliente.email}
-                            onChange={(e) => {
-                                const addedCliente = { ...selectedCliente };
-                                addedCliente.email = e.target.value;
-                                setSelectedCliente(addedCliente);
-                            }}
-                        />
-                    </Modal>
+                {messageType === "success" && alertMessage && (
+                <div className="success-message">{alertMessage}</div>
                 )}
+                {listaCliente
+                .filter((cliente) =>
+                    cliente.nome && cliente.nome.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((cliente) => (
+                        <Clienteview
+                            key={cliente._id} // Certifique-se de usar a propriedade correta para a chave
+                            id={cliente._id}
+                            nome={cliente.nome}
+                            email={cliente.email}
+                            telefone={cliente.telefone}
+                            onEdit={() => handleOpenEditModal(cliente)}
+                            onExcluir={() => handleExcluirCliente(cliente._id)}
+                        />
+                    ))}
 
+
+                    {selectedCliente && (
+                        <Modal
+                            isOpen={isEditing}
+                            setCloseModal={handleCloseEditModal}
+                            botaosalvar={() => handleSaveEdit(selectedCliente)}
+                            titulo="Editar Cliente"
+                            mensagemconfirmacao="Confirma as alterações"
+                        >
+                            <label>Nome</label>
+                            <input
+                                type="text"
+                                value={selectedCliente.nome}
+                                onChange={(e) => {
+                                    const editedCliente = { ...selectedCliente };
+                                    editedCliente.nome = e.target.value;
+                                    setSelectedCliente(editedCliente);
+                                }}
+                            />
+                            <label>Telefone</label>
+                            <input
+                                type="text"
+                                value={selectedCliente.telefone}
+                                onChange={(e) => {
+                                    const editedCliente = { ...selectedCliente };
+                                    editedCliente.telefone = e.target.value;
+                                    setSelectedCliente(editedCliente);
+                                }}
+                            />
+                            <label>Email</label>
+                            <input
+                                type="text"
+                                value={selectedCliente.email}
+                                onChange={(e) => {
+                                    const editedCliente = { ...selectedCliente };
+                                    editedCliente.email = e.target.value;
+                                    setSelectedCliente(editedCliente);
+                                }}
+                            />
+                        </Modal>
+                    )}
+
+                    {isAdding && (
+                        <Modal
+                            isOpen={isAdding}
+                            setCloseModal={() => setIsAdding(false)}
+                            botaosalvar={() => handleSaveAdd()}
+                            titulo="Adicionar Cliente"
+                            mensagemconfirmacao="Confirma as informações"
+                        >
+                            <label>Nome</label>
+                            <input
+                                type="text"
+                                value={selectedCliente.nome}
+                                onChange={(e) => {
+                                    const addedCliente = { ...selectedCliente };
+                                    addedCliente.nome = e.target.value;
+                                    setSelectedCliente(addedCliente);
+                                }}
+                            />
+                            <label>Telefone</label>
+                            <input
+                                type="text"
+                                value={selectedCliente.telefone}
+                                onChange={(e) => {
+                                    const addedCliente = { ...selectedCliente };
+                                    addedCliente.telefone = e.target.value;
+                                    setSelectedCliente(addedCliente);
+                                }}
+                            />
+                            <label>Email</label>
+                            <input
+                                type="text"
+                                value={selectedCliente.email}
+                                onChange={(e) => {
+                                    const addedCliente = { ...selectedCliente };
+                                    addedCliente.email = e.target.value;
+                                    setSelectedCliente(addedCliente);
+                                }}
+                            />
+                        </Modal>
+                    )}
+            </ClienteStyled>
          </Layout>
     </div>
 )

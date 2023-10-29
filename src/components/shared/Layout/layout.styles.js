@@ -9,7 +9,7 @@ export const LayoutStyled = styled.div`
   .wrapper {
     display: flex;
     width: 100%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
   }
 
   .barra-lateral {
@@ -57,6 +57,7 @@ export const LayoutStyled = styled.div`
 
   .header-layout {
     width: 100%;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;

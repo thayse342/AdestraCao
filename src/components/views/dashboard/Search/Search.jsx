@@ -1,13 +1,14 @@
 import {MagnifyingGlass, Plus} from "@phosphor-icons/react";
 import React from 'react'
 import styled from 'styled-components'
+import Input from "../../../common/Input/Input";
 
 /* Componente `Search` para realizar pesquisas */
 const Search = ({onAdd, search, setSearch}) => {
   return (
     <StylesSearch>
         <h2><MagnifyingGlass size={20} /> Pesquisar</h2>
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Digite para pesquisar"/>
+        <Input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Digite para pesquisar"/>
         <button onClick={onAdd}><Plus size={25} color='black' /></button>
     </StylesSearch>
   )
