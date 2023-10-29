@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const LayoutStyled = styled.div`
   width: 100%;
   height: 100vh;
-  color: #828282;
+  color: #474554;
   background-color: #EAF6F8;
 
   .wrapper {
     display: flex;
     width: 100%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
   }
 
   .barra-lateral {
@@ -44,10 +44,20 @@ export const LayoutStyled = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    color: #474554;
+  }
+
+  a:visited{
+    color: #474554;
+  }
+
+  a.active{
+    color: #5EB1FF;
   }
 
   .header-layout {
     width: 100%;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -67,4 +77,6 @@ export const LayoutStyled = styled.div`
   main {
     width: calc(100vw - 264px);
   }
+
+  
 `;

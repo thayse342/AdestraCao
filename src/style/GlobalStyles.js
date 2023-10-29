@@ -23,6 +23,9 @@ a {
 a, li{
   text-decoration: none;
   list-style: none;
+}
+
+a:visited{
   color: inherit;
 }
 
@@ -49,20 +52,4 @@ input {
   padding: 24px 0;
 }
 
-
-
-h2{
-}
-
-h3{
-
-}
-
-p{
-  
-}
-
-a{
- 
-}
 `

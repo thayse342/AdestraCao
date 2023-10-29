@@ -1,43 +1,44 @@
 import React from "react";
-import Logo from "../../common/Logo/Logo";
+import { NavLink } from "react-router-dom";
 import { Gear, CalendarBlank, Users, SignOut } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
 import { LayoutStyled } from "./layout.styles";
+import Logo from "../../common/Logo/Logo";
+
+const NavMenuItem = ({ to, icon, text }) => {
+  const Icon = icon; // Transforme o ícone em um componente
+  return (
+    <NavLink to={to} className="nav-link">
+      <Icon size={20} color="#474554" weight="light" />
+      {text}
+    </NavLink>
+  );
+};
 
 const Layout = ({ children }) => {
   return (
     <LayoutStyled>
       <header className="header-layout">
         <Logo />
-        <Link to="/home">
+        <NavLink to="/" className="nav-link">
+          <SignOut size={20} color="#474554" weight="bold" />
           Sair
-          <SignOut size={20} color="#828282" weight="bold" />
-        </Link>
+        </NavLink>
       </header>
       <div className="wrapper">
         <aside className="barra-lateral">
           <ul>
             <div>
               <li>
-                <Link to="/agendamento">
-                  <CalendarBlank size={20} color="#828282" weight="light" />
-                  Agenda
-                </Link>
+                <NavMenuItem to="/agendamento" icon={CalendarBlank} text="Agenda" />
               </li>
               <li>
-                <Link to="/clientes">
-                  <Users size={20} color="#828282" weight="light" />
-                  Clientes
-                </Link>
+                <NavMenuItem to="/clientes" icon={Users} text="Clientes" />
               </li>
             </div>
             <div>
               <hr />
               <li>
-                <Link to="/configAdmin">
-                  <Gear size={20} color="#828282" weight="light" />
-                  Editar Conta
-                </Link>
+                <NavMenuItem to="/configAdmin" icon={Gear} text="Editar Conta" />
               </li>
             </div>
           </ul>
