@@ -17,12 +17,10 @@ z-index: 1000;
   position: fixed;
   top: 50%;
   left: 50%;
-  padding-bottom: 48px;
+  padding-bottom:25px;
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 8px;
-  width: 670px;
-  height: 425px;
 
   .header {
     width: 650px; 
@@ -37,27 +35,28 @@ z-index: 1000;
     font-weight: bold;
   }
   .content {
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-right: 130px; 
     gap: 12px;
+   >p{
+      text-align: justify;
+    }
+
   }
 
+
+
   .footer {
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 90%;
     display: flex;
     gap: 12px;
-    >.esquerda {
-      margin-left: 80px;
-    }
+    
     >.direita {
       display: flex;
       gap: 24px;
-      margin-right: 80px;
     }
   }
 }
