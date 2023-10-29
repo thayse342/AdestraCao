@@ -20,6 +20,7 @@ const Agendamento = () => {
   const [selectedAgendamento, setSelectedAgendamento] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [search, setSearch] = useState("");
 
   async function handleBuscarAgendamento() {
     const resposta = await getAgendamento();
@@ -101,9 +102,11 @@ const Agendamento = () => {
   return (
     <Layout>
       <AgendamentoStyled>
-        <Search onAdd={handleOpenAddModal} />
+        <Search onAdd={handleOpenAddModal} search={search} setSearch={setSearch} />
 
-        {listaAgendamento.map((agendamento) => (
+        {listaAgendamento.filter((agendamento) =>
+        agendamento.cliente.toLowerCase().includes(search.toLowerCase())
+        ).map((agendamento) => (
           <Agendamentoview
             key={agendamento._id}
             id={agendamento._id}
