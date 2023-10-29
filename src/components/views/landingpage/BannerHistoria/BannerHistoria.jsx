@@ -2,7 +2,7 @@ import { HistoriaStyle } from './historia.style';
 
 const BannerHistoria = () => {
   return (
-    <HistoriaStyle>
+    <HistoriaStyle id='historia'>
       <div className="container-historia">
         <div className="conteudo">
           <div className="titulo">
