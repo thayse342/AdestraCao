@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const LayoutStyled = styled.div`
   width: 100%;
   height: 100vh;
-  color: #828282;
+  color: #474554;
   background-color: #EAF6F8;
 
   .wrapper {
@@ -44,6 +44,15 @@ export const LayoutStyled = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    color: #474554;
+  }
+
+  a:visited{
+    color: #474554;
+  }
+
+  a.active{
+    color: #5EB1FF;
   }
 
   .header-layout {
@@ -67,4 +76,6 @@ export const LayoutStyled = styled.div`
   main {
     width: calc(100vw - 264px);
   }
+
+  
 `;
