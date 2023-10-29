@@ -25,6 +25,10 @@ a, li{
   list-style: none;
 }
 
+a:visited{
+  color: inherit;
+}
+
 button,
 input {
   outline: none;

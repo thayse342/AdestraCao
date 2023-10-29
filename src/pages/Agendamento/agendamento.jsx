@@ -10,7 +10,6 @@ import {
   addAgendamento,
 } from "../../service/api";
 import Modal from "../../components/common/Modal/Modal";
-import { Link } from "react-router-dom";
 import AgendamentoStyled from "./agendamento.styles";
 import Input from "../../components/common/Input/Input";
 
