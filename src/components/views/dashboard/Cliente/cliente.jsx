@@ -2,7 +2,7 @@ import { Trash, Pencil, User } from "@phosphor-icons/react";
 import React from 'react';
 import styled from 'styled-components';
 
-const Clienteview = ({ id, nome, telefone, email }) => {
+const Clienteview = ({ id, nome, telefone, email, onEdit, onExcluir }) => {
   return (
     <StylesCliente>
       {console.log(`ID: ${id}, Nome: ${nome}, Telefone: ${telefone}, Email: ${email}`)}
@@ -11,8 +11,8 @@ const Clienteview = ({ id, nome, telefone, email }) => {
       <p>Nome: {nome}</p>
       <p>Telefone: {telefone}</p>
       <p>Email: {email}</p>
-      <button><Pencil size={25} color='black' /></button>
-      <button><Trash size={25} color='black' /></button>
+      <button onClick={() => onEdit({ nome, telefone, email})}><Pencil size={25} color='black' /></button>
+      <button onClick={onExcluir}><Trash size={25} color='black' /></button>
     </StylesCliente>
   );
 };
