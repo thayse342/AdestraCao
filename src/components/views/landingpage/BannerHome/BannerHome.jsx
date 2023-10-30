@@ -2,7 +2,7 @@ import { HomeStyle } from './home.style';
 
 const BannerHome = () => {
   return (
-    <HomeStyle className="home">
+    <HomeStyle className="home" id='home'>
       <div className="container-home">
         <img className="cachorropata" src="/cachorro-pata.jpg" />
         <div className="conteudo">

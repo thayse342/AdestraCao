@@ -7,7 +7,7 @@ import Logo from '../Logo/Logo'
 
 const Bannerfooter = ({ onClick }) => {
   return (
-    <StyleBannerfooter>
+    <StyleBannerfooter id='footer'>
       <div className="tituloESub">
         <h1>ENTRE EM CONTATO</h1>
         <p className='subtitulo'>E agende uma aula experimental</p>

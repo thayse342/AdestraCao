@@ -8,19 +8,19 @@ const Header = () => {
         <nav>
           <ul className="lista-links">
             <li>
-              <Link className="link" to="/">
+              <a className="link" href="#home">
                 Home
-              </Link>
+              </a>
             </li>
             <li>
-              <Link className="link" to="/">
+              <a className="link" href="#historia">
                 + Informações
-              </Link>
+              </a>
             </li>
             <li>
-              <Link className="link" to="/">
+              <a className="link" href="#footer">
                 Contato
-              </Link>
+              </a>
             </li>
             <li>
               <Link className="link" to="/login">
@@ -30,7 +30,7 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-  </HeaderStyle>
+    </HeaderStyle>
   )
 }
 
