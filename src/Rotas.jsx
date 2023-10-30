@@ -4,7 +4,7 @@ import { GlobalStyle } from "./style/GlobalStyles";
 import Agendamento from "./pages/Agendamento/agendamento";
 import Login from "./pages/Login/Login";
 import Landinpage from "./pages/Landingpage/Landinpage";
-import Clientes from "./pages/Clientes/Clientes"
+import Clientes from "./pages/Clientes/Cliente"
 import ConfigAdmin from "./pages/ConfigAdmin/ConfigAdmin";
 
 
