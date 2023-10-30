@@ -24,7 +24,7 @@ const Header = () => {
             </li>
             <li>
               <Link className="link" to="/login">
-                Àrea do Adestrador
+                Área do Adestrador
               </Link>
             </li>
           </ul>

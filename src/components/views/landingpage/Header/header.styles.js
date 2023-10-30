@@ -1,10 +1,14 @@
 import styled from "styled-components"
 
-export  const HeaderStyle = styled.header`
+export const HeaderStyle = styled.header`
 	max-width: 100vw;
 	height: 110px;
 	padding: 30px 0;
 	background-color: #19DEFF;
+
+	a {
+		color: black;
+	}
 
 	.container-header {
 		display: grid;
