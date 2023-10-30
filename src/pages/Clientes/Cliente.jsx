@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/shared/Layout/Layout'
 import Search from '../../components/views/dashboard/Search/Search'
-import ClienteView from '../../components/views/dashboard/Cliente/Cliente'; // Certifique-se de usar a importação correta para ClienteView
+import ClienteView from '../../components/views/dashboard/Cliente/Cliente'
 import { getClientes, updateCliente, deleteCliente, addCliente } from '../../service/api';
 import Modal from '../../components/common/Modal/Modal';
 import ClienteStyled from './cliente.styles';
