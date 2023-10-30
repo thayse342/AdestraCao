@@ -31,14 +31,26 @@ Para que a aplicação funcione você precisará clonar o repositório do backen
    ```bash
    https://github.com/IgorSPinto/Agendamento_API_MD5.git
    ```
-Após isso utilize os seguintes comandos:
+instale as dependencias:
 
    ```bash
    npm install
    ```
 
+Será necessário criar um arquivo .env seguindo o exemplo já existente, com os seguintes dados para ter acesso ao banco de dados da aplicação:
+
    ```bash
-   npm run dev 
+   USER_DB=igorpinto103
+   PASSWORD=1234
+   DATABASE=lazkspx 
+   CLUSTER=cluster0
+   PORT=3000
+   ```
+
+Após isso utilize o comando a seguir para rodar a aplicação:
+
+   ```bash
+   npm run dev
    ```
 
 ## Instalação
