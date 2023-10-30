@@ -50,7 +50,7 @@ Será necessário criar um arquivo .env seguindo o exemplo já existente, com os
 Após isso utilize o comando a seguir para rodar a aplicação:
 
    ```bash
-   npm star
+   npm run dev
    ```
 
 ## Instalação
