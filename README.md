@@ -27,6 +27,7 @@ Certifique-se de ter instalado o seguinte software:
 ## Deployment 
 
 Link do deploy: https://adestra-cao.vercel.app/
+
 Atenção: para que o deploy funcione corretamente, é necessário que a API da aplicação esteja rodando em sua máquina.
 
 ## Repositório backend
