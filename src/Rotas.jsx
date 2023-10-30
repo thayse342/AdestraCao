@@ -14,7 +14,7 @@ const Rotas = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/login" element={<Login/>} />
-        <Route path="/configAdmin" element={<Login/>} />
+        <Route path="/configAdmin" element={<ConfigAdmin/>} />
         <Route path="/agendamento" element={<Agendamento/>} />
         <Route path="/clientes" element={<Clientes/>} />
         <Route path="/" element={<Landinpage/>} />
