@@ -24,6 +24,12 @@ Certifique-se de ter instalado o seguinte software:
 - [Node.js](https://nodejs.org/) - Ambiente de tempo de execução JavaScript.
 - [npm](https://www.npmjs.com/) - Gerenciador de pacotes para instalar as dependências do projeto.
 
+## Deployment 
+
+Link do deploy: https://adestra-cao.vercel.app/
+
+Atenção: para que o deploy funcione corretamente, é necessário que a API da aplicação esteja rodando em sua máquina.
+
 ## Repositório backend
 
 Para que a aplicação funcione você precisará clonar o repositório do backend utilizando este link
