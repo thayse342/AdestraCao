@@ -1,128 +1,185 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Layout from '../../components/shared/Layout/Layout';
-import Modal from '../../components/common/Modal/Modal';
-import ConfigAdminStyled from './configAdmin.styles';
-import Input from '../../components/common/Input/Input';
-import ConfigAdminView from '../../components/views/dashboard/ConfigAdmin/ConfigAdminView'; 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Layout from "../../components/shared/Layout/Layout";
+import ConfigAdminStyled from "./configAdmin.styles";
+import Input from "../../components/common/Input/Input";
 
 const ConfigAdmin = () => {
-  const [adestradores, setAdestradores] = useState([]);
-  const [selectedAdestrador, setSelectedAdestrador] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [messageType, setMessageType] = useState('error');
-  const [alertMessage, setAlertMessage] = useState('');
-  const [messageDuration] = useState(3000);
+  const [adestrador, setAdestrador] = useState({
+    nome: "",
+    email: "",
+  });
 
-  async function handleBuscarAdestradores() {
-    try {
-      const response = await axios.get('http://localhost:3000/adestrador');
-      setAdestradores(response.data);
-    } catch (error) {
-      console.error('Erro ao buscar adestradores:', error);
-    }
-  }
+  const [tipoMensagem, setTipoMensagem] = useState(null);
+  const [mensagemAlerta, setMensagemAlerta] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [senhaAtual, setSenhaAtual] = useState("");
 
-  const handleOpenEditModal = (adestrador) => {
-    setSelectedAdestrador(adestrador);
-    setIsEditing(true);
-  };
-
-  const handleCloseEditModal = () => {
-    setSelectedAdestrador(null);
-    setIsEditing(false);
-  };
-
-  const handleSaveEdit = async () => {
-    try {
-      const editedAdestrador = { ...selectedAdestrador };
-      const response = await axios.put(`http://localhost:3000/adestrador/${editedAdestrador.id}`, editedAdestrador);
-
-      if (response.status === 200) {
-        setAdestradores(adestradores.map((adestrador) => (adestrador.id === editedAdestrador.id ? editedAdestrador : adestrador)));
-        handleCloseEditModal();
-        setAlertMessage('Adestrador atualizado com sucesso.');
-        setMessageType('success');
-        setTimeout(() => setAlertMessage(null), messageDuration);
-      } else {
-        setAlertMessage('Erro ao atualizar adestrador.');
-        setMessageType('error');
-        setTimeout(() => setAlertMessage(null), messageDuration);
-      }
-    } catch (error) {
-      setAlertMessage('Erro ao atualizar adestrador: ' + error);
-      setMessageType('error');
-      setTimeout(() => setAlertMessage(null), messageDuration);
-    }
-  }
+  const duracaoMensagem = 3000;
 
   useEffect(() => {
-    handleBuscarAdestradores();
+    const buscarAdestrador = async () => {
+      try {
+        const resposta = await axios.get("http://localhost:3000/adestrador");
+        setAdestrador(resposta.data[0]);
+        console.log("Adestrador carregado:", resposta.data[0]);
+      } catch (erro) {
+        console.error("Erro ao buscar o adestrador:", erro);
+        setMensagemAlerta("Erro ao buscar o adestrador. Tente novamente.");
+        setTipoMensagem("error");
+      }
+    };
+
+    buscarAdestrador();
   }, []);
 
-  return (
-    <div>
-      <Layout>
-        <ConfigAdminStyled>
-          {messageType === 'error' && alertMessage && (
-            <div className="error-message">{alertMessage}</div>
-          )}
-          {messageType === 'success' && alertMessage && (
-            <div className="success-message">{alertMessage}</div>
-          )}
-          {adestradores.map((adestrador) => (
-            <ConfigAdminView
-              key={adestrador.id}
-              nome={adestrador.nome}
-              email={adestrador.email}
-              senha="●●●●●●●"
-              onEdit={() => handleOpenEditModal(adestrador)}
-            />
-          ))}
+  const alterarSenha = async () => {
+    if (!adestrador) {
+      console.error("Nenhum adestrador encontrado.");
+      return;
+    }
 
-          {selectedAdestrador && (
-            <Modal
-              isOpen={isEditing}
-              setCloseModal={handleCloseEditModal}
-              botaosalvar={handleSaveEdit}
-              titulo="Editar Adestrador"
-              mensagemconfirmacao="Confirma as alterações"
-            >
-              <label>Nome</label>
-              <input
-                type="text"
-                value={selectedAdestrador.nome}
-                onChange={(e) => {
-                  const editedAdestrador = { ...selectedAdestrador };
-                  editedAdestrador.nome = e.target.value;
-                  setSelectedAdestrador(editedAdestrador);
-                }}
+    const url = `http://localhost:3000/adestrador/653f2f5dc7d96051b7b3e8cf`;
+
+    const eSenhaAtualValida = await validarSenhaAtual();
+
+    if (eSenhaAtualValida) {
+      try {
+        const dadosSenhaAtualizada = {
+          id: adestrador.id,
+          nome: adestrador.nome,
+          email: adestrador.email,
+          senha: novaSenha,
+        };
+
+        console.log(
+          "Dados enviados para atualização de senha:",
+          dadosSenhaAtualizada
+        );
+
+        const resposta = await axios.patch(url, dadosSenhaAtualizada);
+
+        console.log("Solicitação PATCH enviada:", resposta.config);
+        console.log("Resposta da atualização de senha:", resposta.data);
+
+        if (resposta.status === 200) {
+          setMensagemAlerta("Cadastro atualizado com sucesso.");
+          setTipoMensagem("success");
+          setTimeout(() => setMensagemAlerta(""), duracaoMensagem);
+        } else {
+          setMensagemAlerta("Erro ao atualizar a senha.");
+          setTipoMensagem("error");
+        }
+      } catch (erro) {
+        setMensagemAlerta("Erro ao atualizar cadastro " + erro);
+        setTipoMensagem("error");
+      }
+    } else {
+      setMensagemAlerta(
+        "Senha atual incorreta. Não foi possível alterar o cadastro."
+      );
+      setTipoMensagem("error");
+    }
+  };
+
+  const validarSenhaAtual = async () => {
+    try {
+      const resposta = await axios.post("http://localhost:3000/login", {
+        email: adestrador.email,
+        senha: senhaAtual,
+      });
+      console.log("Resposta da validação de senha atual:", resposta);
+
+      return resposta.status === 200;
+    } catch (erro) {
+      return false;
+    }
+  };
+
+  const salvarEdicao = async (e) => {
+    e.preventDefault(); 
+
+    if (novaSenha !== confirmarSenha) {
+      setMensagemAlerta("As senhas não coincidem.");
+      setTipoMensagem("error");
+      return;
+    }
+
+    await alterarSenha();
+    setNovaSenha("");
+    setConfirmarSenha("");
+    setSenhaAtual("");
+  };
+
+  return (
+    <Layout>
+      <ConfigAdminStyled>
+        {tipoMensagem === "error" && mensagemAlerta && (
+          <div className="error-message">{mensagemAlerta}</div>
+        )}
+        {tipoMensagem === "success" && mensagemAlerta && (
+          <div className="success-message">{mensagemAlerta}</div>
+        )}
+        <form onSubmit={salvarEdicao}>
+          <h3>Editar Cadastro</h3>
+          <label>Nome</label>
+          <Input
+            type="text"
+            value={adestrador.nome}
+            onChange={(e) => {
+              setAdestrador({ ...adestrador, nome: e.target.value });
+            }}
+          />
+          <label>Email</label>
+          <Input
+            type="text"
+            value={adestrador.email}
+            onChange={(e) => {
+              setAdestrador({ ...adestrador, email: e.target.value });
+            }}
+          />
+          <hr />
+          <h3>Alterar Senha</h3>
+          <div className="containerItem">
+            <div className="item">
+              <label>Nova Senha</label>
+              <Input
+                className="input"
+                type="password"
+                value={novaSenha}
+                onChange={(e) => setNovaSenha(e.target.value)}
               />
-              <label>Email</label>
-              <input
-                type="text"
-                value={selectedAdestrador.email}
-                onChange={(e) => {
-                  const editedAdestrador = { ...selectedAdestrador };
-                  editedAdestrador.email = e.target.value;
-                  setSelectedAdestrador(editedAdestrador);
-                }}
+            </div>
+            <div className="item">
+              <label>Confirme a Nova Senha</label>
+              <Input
+                className="input"
+                type="password"
+                value={confirmarSenha}
+                onChange={(e) => setConfirmarSenha(e.target.value)}
               />
-              <label>Senha</label>
-              <input
-                type="text"
-                value={selectedAdestrador.senha}
-                onChange={(e) => {
-                  const editedAdestrador = { ...selectedAdestrador };
-                  editedAdestrador.senha = e.target.value;
-                  setSelectedAdestrador(editedAdestrador);
-                }}
+            </div>
+          </div>
+          <hr />
+          <h3>Digite a senha atual para confirmar as alterações</h3>
+          <div className="containerItem">
+            <div className="item">
+              <label>Senha atual</label>
+              <Input
+                className="input"
+                type="password"
+                value={senhaAtual}
+                onChange={(e) => setSenhaAtual(e.target.value)}
               />
-            </Modal>
-          )}
-        </ConfigAdminStyled>
-      </Layout>
-    </div>
+            </div>
+            <button type="submit" className="button">
+              Salvar
+            </button>
+          </div>
+        </form>
+      </ConfigAdminStyled>
+    </Layout>
   );
 };
 
