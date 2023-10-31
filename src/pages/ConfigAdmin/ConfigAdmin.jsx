@@ -3,6 +3,7 @@ import axios from "axios";
 import Layout from "../../components/shared/Layout/Layout";
 import ConfigAdminStyled from "./configAdmin.styles";
 import Input from "../../components/common/Input/Input";
+import Button from "../../components/common/Button/Button";
 
 const ConfigAdmin = () => {
   const [adestrador, setAdestrador] = useState({
@@ -173,9 +174,14 @@ const ConfigAdmin = () => {
                 onChange={(e) => setSenhaAtual(e.target.value)}
               />
             </div>
-            <button type="submit" className="button">
-              Salvar
-            </button>
+            <Button
+              texto="Salvar"
+              width="30%"
+              height="auto"
+              variant="primary"
+              type="submit"
+              onClick={salvarEdicao}
+            />
           </div>
         </form>
       </ConfigAdminStyled>
