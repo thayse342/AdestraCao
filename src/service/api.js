@@ -96,3 +96,12 @@ export const login = async (email, senha) => {
     throw error;
   }
 };
+
+export const updateAdestradorPassword = async (id, senha) => {
+  try {
+    const response = await api.patch(`/adestrador/${id}`, { senha });
+    return response.data;
+  } catch (error) {
+    throw new Error("Erro ao atualizar senha do adestrador: " + error.message);
+  }
+};
